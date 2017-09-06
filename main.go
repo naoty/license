@@ -5,6 +5,7 @@ import (
 	"os"
 	"path/filepath"
 	"text/template"
+	"time"
 )
 
 func main() {
@@ -16,8 +17,10 @@ func main() {
 		return
 	}
 
-	data := map[string]string{
-		"year":     "2017",
+	year := time.Now().Year()
+
+	data := map[string]interface{}{
+		"year":     year,
 		"fullname": "Naoto Kaneko",
 	}
 
