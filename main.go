@@ -16,5 +16,10 @@ func main() {
 		return
 	}
 
-	template.Execute(os.Stdout, nil)
+	data := map[string]string{
+		"year":     "2017",
+		"fullname": "Naoto Kaneko",
+	}
+
+	template.Execute(os.Stdout, data)
 }
