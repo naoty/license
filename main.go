@@ -3,7 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
+	"strings"
 	"text/template"
 	"time"
 )
@@ -18,11 +20,30 @@ func main() {
 	}
 
 	year := time.Now().Year()
+	fullname, err := getFullnameFromGit()
+
+	if err != nil {
+		fmt.Fprintln(os.Stderr, err)
+	}
 
 	data := map[string]interface{}{
 		"year":     year,
-		"fullname": "Naoto Kaneko",
+		"fullname": fullname,
 	}
 
 	template.Execute(os.Stdout, data)
+}
+
+func getFullnameFromGit() (string, error) {
+	cmd := exec.Command("git", "config", "user.name")
+	out, err := cmd.Output()
+
+	if err != nil {
+		return "", err
+	}
+
+	result := fmt.Sprintf("%s", out)
+	result = strings.TrimRight(result, "\n")
+
+	return result, nil
 }
