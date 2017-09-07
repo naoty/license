@@ -1,2 +1,4 @@
+VERSION ?= $$(git describe --tags)
+
 build:
-	go build -o out/license
+	go build -ldflags "-X main.Version=$(VERSION)" -o out/license
