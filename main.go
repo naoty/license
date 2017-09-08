@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"strings"
 	"text/template"
 	"time"
@@ -22,8 +21,10 @@ func main() {
 		}
 	}
 
-	path := filepath.Join("templates", "mit.txt")
-	template, err := template.ParseFiles(path)
+	asset := MustAsset("templates/mit.txt")
+	text := fmt.Sprintf("%s", asset)
+	template := template.New("mit.txt")
+	template, err := template.Parse(text)
 
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
