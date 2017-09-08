@@ -1,2 +1,4 @@
 out/
-*.tar.gz
+vendor/
+license.tar.gz
+bindata.go
